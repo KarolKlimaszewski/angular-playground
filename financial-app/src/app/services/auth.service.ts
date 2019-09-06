@@ -11,13 +11,14 @@ export class AuthService {
   userdata: Observable<firebase.User>;
 
   constructor(private angularFireAuth: AngularFireAuth) {
-    this.userdata = angularFireAuth.authState;
+    this.userdata = this.angularFireAuth.authState;
    }
 
   signIn({email, password} : Credentials) {
     this.angularFireAuth.auth.signInWithEmailAndPassword(email, password)
       .then(res => {
         console.log(`Successfully logged in.`);
+        this.userdata = this.angularFireAuth.authState;
       })
       .catch(err => {
         console.error(`Something is wrong: ${err.message}`);
@@ -35,6 +36,9 @@ export class AuthService {
   }
 
   signOut() {
-    this.angularFireAuth.auth.signOut();
+    this.angularFireAuth.auth.signOut()
+    .then(res => {
+      console.log(`Successfully logged out.`);
+    })
   }
 }

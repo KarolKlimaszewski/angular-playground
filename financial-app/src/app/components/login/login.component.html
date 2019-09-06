@@ -1,11 +1,15 @@
-    <label for="email">
-      email:
-      <input type="email" id="email" [(ngModel)]="email">
-    </label>
-    <label for="password">
-      password:
-      <input type="password" id="password" [(ngModel)]="password">
-    </label>
-    <button (click)="signUp()">Submit</button>
+<h1 *ngIf="authService.userdata | async">Hello {{ (authService.userdata | async)?.email }}</h1>
+<div *ngIf="!(authService.userdata | async)">
+  <label for="email">
+    email:
+    <input type="email" id="email" [(ngModel)]="email">
+  </label>
+  <label for="password">
+    password:
+    <input type="password" id="password" [(ngModel)]="password">
+  </label>
+  <button (click)="signIn()">Submit</button>
+  <p>Don't have account yet? <a [routerLink]="['/register']">Create it now!</a></p>
+</div>
 
-    <p>Don't have account yet? <a [routerLink]="['/register']">Create it now!</a></p>
+<button *ngIf="authService.userdata | async" (click)="signOut()">Sign out</button>

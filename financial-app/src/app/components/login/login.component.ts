@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   password: string;
   constructor(public authService: AuthService) { }
 
-  signUp() {
+  signIn() {
     const credentials: Credentials = {
       email: this.email,
       password: this.password
@@ -23,7 +23,12 @@ export class LoginComponent implements OnInit {
     this.password = '';
   }
 
+  signOut() {
+    this.authService.signOut();
+  }
+
   ngOnInit() {
+    console.log(this.authService.userdata)
   }
 
 }
